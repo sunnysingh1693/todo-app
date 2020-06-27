@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Todo } from '../classes/todo';
+import { StorageService } from './storage.service';
 
 
 @Injectable({
@@ -10,7 +11,9 @@ export class TodoDataService {
   lastId: number = 0;
   todos: Todo[] = [];
 
-  constructor() { }
+  constructor(private storageService: StorageService) {
+    this.todos = storageService.getData('todoListStorageKey') || [];
+  }
 
   addTodo(todo: Todo) {
     let currentDate = new Date();
@@ -19,6 +22,7 @@ export class TodoDataService {
       todo.timeStamp = currentDate.toLocaleDateString() + ' | ' + currentDate.toLocaleTimeString();
     }
     this.todos.push(todo);
+    this.storageService.setData('todoListStorageKey', this.todos);
     return this;
   }
 
@@ -26,6 +30,7 @@ export class TodoDataService {
     this.todos = this.todos.filter(
       todo => todo.id !== id
     );
+    this.saveList();
     return this;
   }
 
@@ -46,40 +51,18 @@ export class TodoDataService {
       return null;
     }
     Object.assign(todo, values);
+    this.saveList();
+  }
+
+  private saveList() {
+    this.storageService.setData('todoListStorageKey', this.todos);
   }
 
   todoIsComplete(todo: Todo) {
     let updateTodo = this.updateTodo(todo.id, {
       completed: !todo.completed
     });
-    this.addToComplted(todo);
     return updateTodo;
   }
 
-  //***** Complted array functions *****//
-  completedTodos: Todo[] = [];
-
-  addToComplted(completedTodo: Todo) {
-    let completedTodoItem = this.fetchOneTodo(completedTodo.id)
-    this.completedTodos.push(completedTodoItem);
-    this.deleteTodo(completedTodo.id)
-  }
-
-  deleteCompletedTodo(id: number) {
-    this.completedTodos = this.completedTodos.filter(
-      todo => todo.id !== id
-    );
-    return this;
-  }
-
-  fetchAllCompletedTodos(): Todo[] {
-    return this.completedTodos;
-  }
-
-  fetchOneCompletedTodo(id: number): Todo {
-    return this.completedTodos
-      .filter(
-        todo => todo.id === id
-      ).pop();
-  }
 }
