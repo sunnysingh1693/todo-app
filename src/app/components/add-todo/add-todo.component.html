@@ -1,0 +1,13 @@
+<!-- <header class="header">
+  <h1>Todos App</h1>
+  <input class="new-todo" placeholder="What needs to be done?" autofocus="" [(ngModel)]="newTodo.title" (keyup.enter)="addTodo()">
+</header> -->
+
+<form [formGroup]="newItemForm" (ngSubmit)="addTodo(newItemForm.value)" autocomplete="off">
+  <div class="form-group">
+    <label for="addItem">Add Item</label>
+    <input formControlName="item" id="new-todo" placeholder="What needs to be done?" autofocus [(ngModel)]="newTodo.title" class="form-control" maxlength="201" autofocus>
+    <em *ngIf="item.invalid && item.dirty && item?.errors.maxlength" class="text-capitalize">character limit 200 reached</em>
+  </div>
+  <button [disabled]="newItemForm.invalid" type="submit" class="btn btn-primary">Add</button>
+</form>
