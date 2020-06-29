@@ -1,67 +1,68 @@
 <app-add-todo></app-add-todo>
 <br>
-<div class="float-left text-left mb-5">
-  <h1 class="display-4 text-uppercase">todo-list</h1>
-  <div *ngIf="todos.length > 0">
-    <div class="row" *ngFor="let todo of filterCompletedTodos(false)">
-      <div class="col-sm-12">
-        <div class="list-group">
-          <div class="list-group-item">
-            <div class="blockquote">{{todo.title}}</div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-12 col-md-6">
-                <div class="d-flex align-items-end" style="height:100%;">
-                  <fa-icon [icon]="faTimesCircle" size="2x" (click)="removeTodo(todo)"></fa-icon>
-                  <fa-icon [icon]="faCheckCircle" size="2x" (click)="toggleTodoComplete(todo)"><input type="checkbox" [checked]="todo.completed"></fa-icon>
-                  <fa-icon [icon]="faEdit" size="2x" data-toggle="modal" data-target="#todoUpdateModal" (click)="titleForUpdate(todo)"></fa-icon>
+<div class="row">
+  <div class="float-left text-left mb-5 col-md-6 col-sm-12">
+    <h1 class="display-4 text-uppercase">todo-list</h1>
+    <div *ngIf="todos.length > 0">
+      <div class="row" *ngFor="let todo of filterCompletedTodos(false)">
+        <div class="col-sm-12">
+          <div class="list-group">
+            <div class="list-group-item">
+              <div class="blockquote">{{todo.title}}</div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <div class="d-flex align-items-center">
+                    <fa-icon [icon]="faCheckCircle" (click)="toggleTodoComplete(todo)"><input type="checkbox" [checked]="todo.completed"></fa-icon>
+                    <fa-icon [icon]="faEdit" data-toggle="modal" data-target="#todoUpdateModal" (click)="titleForUpdate(todo)"></fa-icon>
+                    <fa-icon [icon]="faTrashAlt" (click)="removeTodo(todo)"></fa-icon>
+                  </div>
                 </div>
-              </div>
-              <div class="col-sm-12 col-md-6">
-                <div class="badge badge-primary badge-pill text-capitalize p-2 m-2 float-right">created on: {{todo.timeStamp}}</div>
+                <div class="col-sm-12 col-md-6">
+                  <div class="badge badge-primary badge-pill text-capitalize p-2 m-2 float-right">created on: {{todo.timeStamp}}</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row" *ngIf="filterCompletedTodos(false).length == 0">
-    <div class="col-12">
-      Please add a task! <br>
+    <div class="row" *ngIf="filterCompletedTodos(false).length == 0">
+      <div class="col-12">
+        Please add a task! <br>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="float-right text-right">
-  <h1 class="display-4 text-uppercase">completed-list</h1>
-  <div *ngIf="todos.length > 0">
-    <div class="row" *ngFor="let todo of filterCompletedTodos(true)" [class.completed]="todo.completed">
-      <div class="col-sm-12">
-        <div class="list-group">
-          <div class="list-group-item">
-            <div class="blockquote">{{todo.title}}</div>
-            <hr>
-            <div class="row">
-              <div class="col-6">
-                <div class="d-flex align-items-end" style="height:100%;">
-                  <fa-icon [icon]="faTimesCircle" size="2x" (click)="removeTodo(todo)"></fa-icon>
-                  <!-- <fa-icon [icon]="faCheckCircle" size="2x" (click)="toggleTodoComplete(todo)"><input type="checkbox" [checked]="todos.completed"></fa-icon> -->
-                  <!-- <fa-icon [icon]="faEdit" size="2x"></fa-icon> -->
+  <div class="float-right text-right col-md-6 col-sm-12">
+    <h1 class="display-4 text-uppercase">completed-list</h1>
+    <div *ngIf="todos.length > 0">
+      <div class="row" *ngFor="let todo of filterCompletedTodos(true)" [class.completed]="todo.completed">
+        <div class="col-sm-12">
+          <div class="list-group">
+            <div class="list-group-item">
+              <div class="blockquote">{{todo.title}}</div>
+              <hr>
+              <div class="row">
+                <div class="col-6">
+                  <div class="d-flex align-items-center">
+                    <fa-icon [icon]="faTrashAlt" (click)="removeTodo(todo)"></fa-icon>
+                    <!-- <fa-icon [icon]="faCheckCircle" (click)="toggleTodoComplete(todo)"><input type="checkbox" [checked]="todos.completed"></fa-icon> -->
+                    <!-- <fa-icon [icon]="faEdit"></fa-icon> -->
+                  </div>
                 </div>
-              </div>
-              <div class="col-6">
-                <div class="badge badge-primary badge-pill text-capitalize p-2 m-2 float-right">created on: {{todo.timeStamp}}</div>
+                <div class="col-6">
+                  <div class="badge badge-primary badge-pill text-capitalize p-2 m-2 float-right">created on: {{todo.timeStamp}}</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row" *ngIf="filterCompletedTodos(true).length == 0">
-    <div class="col-12">
-      You've not completed any tasks yet! <br>
+    <div class="row" *ngIf="filterCompletedTodos(true).length == 0">
+      <div class="col-12">
+        You've not completed any tasks yet! <br>
+      </div>
     </div>
   </div>
 </div>
