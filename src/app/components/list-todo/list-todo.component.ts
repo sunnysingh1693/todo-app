@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Todo } from 'src/app/classes/todo';
 import { TodoDataService } from 'src/app/services/todo-data.service';
-import { faTimesCircle, faCheckCircle, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle, faCheckCircle, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
@@ -57,4 +57,5 @@ export class ListTodoComponent implements OnInit {
   faTimesCircle = faTimesCircle;
   faCheckCircle = faCheckCircle;
   faEdit = faEdit;
+  faTrashAlt = faTrashAlt;
 }
